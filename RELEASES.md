@@ -9,5 +9,5 @@ The format is based on Keep a Changelog, and this project aims to follow Semanti
 ### Added
 
 - GitHub Actions workflows for tests, GoReleaser releases on version tags, and gitleaks secret scanning.
-- GoReleaser configuration for cross-platform binaries and optional Homebrew tap publishing (same pattern as [namespace-terminator](https://github.com/alihamzaoriginal/namespace-terminator)).
+- GoReleaser configuration for cross-platform binaries and optional Homebrew tap publishing.
 - Apache-2.0 license alignment and repository-oriented documentation.

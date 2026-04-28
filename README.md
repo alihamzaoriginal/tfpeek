@@ -99,14 +99,22 @@ tfpeek propagates the selected CLI’s exit status where applicable (including e
 
 ### Homebrew
 
-Once release automation is enabled and the tap formula exists:
+**tfpeek is not in Homebrew/core.** Install from the project tap (same pattern as [namespace-terminator](https://github.com/alihamzaoriginal/namespace-terminator)). Either:
+
+```bash
+brew install alihamzaoriginal/homebrew-tap/tfpeek
+```
+
+or:
 
 ```bash
 brew tap alihamzaoriginal/homebrew-tap
 brew install tfpeek
 ```
 
-Publishing to the tap requires a **`TAP_GITHUB_TOKEN`** repository secret (same setup as [namespace-terminator](https://github.com/alihamzaoriginal/namespace-terminator)).
+Do not run plain `brew install tfpeek` — Homebrew will look only in core and report “No available formula”.
+
+The formula appears in **`alihamzaoriginal/homebrew-tap`** only after a tagged release has run **GoReleaser** with tap publishing configured. That needs a **`TAP_GITHUB_TOKEN`** secret on the **tfpeek** repo (see release workflow). Until the first successful publish, use [**Go install**](#go-install) or [**Direct download**](#direct-download) instead.
 
 ### Go install
 
