@@ -1,0 +1,76 @@
+version: 2
+project_name: tfpeek
+
+before:
+  hooks:
+    - go mod tidy
+    - go test ./...
+
+builds:
+  - id: tfpeek
+    main: .
+    binary: tfpeek
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
+    ldflags:
+      - -s -w
+
+archives:
+  - id: default
+    ids:
+      - tfpeek
+    formats:
+      - tar.gz
+    format_overrides:
+      - goos: windows
+        formats:
+          - zip
+    name_template: >-
+      {{ .ProjectName }}_
+      {{- .Version }}_
+      {{- .Os }}_
+      {{- .Arch }}
+
+checksum:
+  name_template: checksums.txt
+
+snapshot:
+  version_template: "{{ incpatch .Version }}-next"
+
+changelog:
+  use: git
+  sort: asc
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"
+
+release:
+  github:
+    owner: alihamzaoriginal
+    name: tfpeek
+
+brews:
+  - name: tfpeek
+    ids:
+      - default
+    repository:
+      owner: alihamzaoriginal
+      name: homebrew-tap
+      branch: main
+      token: "{{ .Env.TAP_GITHUB_TOKEN }}"
+    directory: Formula
+    homepage: https://github.com/alihamzaoriginal/tfpeek
+    description: Dry-run Terraform/OpenTofu plan summaries grouped by change type
+    license: Apache-2.0
+    test: |
+      system "#{bin}/tfpeek", "--help"
+    install: |
+      bin.install "tfpeek"
