@@ -149,6 +149,13 @@ go test ./...
 go vet ./...
 ```
 
-Releases are built with [**GoReleaser**](https://goreleaser.com/) (see [`.goreleaser.yml`](.goreleaser.yml)). Pushing a SemVer tag **`v*`** triggers [`.github/workflows/release.yml`](.github/workflows/release.yml).
+Releases are built with [**GoReleaser**](https://goreleaser.com/) (see [`.goreleaser.yml`](.goreleaser.yml)). You **must create and push a git tag** like **`v0.1.0`** before CI can publish a release—GoReleaser refuses **`release`** when there are zero **`v*`** tags.
+
+```bash
+git tag -a v0.1.0 -m "tfpeek v0.1.0"
+git push origin v0.1.0
+```
+
+See **[RELEASES.md](RELEASES.md)** for the full checklist (secrets, changelog).
 
 Pull requests run tests ([`test.yml`](.github/workflows/test.yml)) and optional secret scanning ([`secret-scan.yml`](.github/workflows/secret-scan.yml)).
